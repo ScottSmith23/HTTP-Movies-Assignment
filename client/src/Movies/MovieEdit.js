@@ -23,6 +23,16 @@ const MovieEdit = props => {
     
   };
 
+
+  useEffect(() => {
+    const MovieToUpdate = props.movies.find(e => `${e.id}` === id);
+    if (MovieToUpdate) {
+      setNewMovie(MovieToUpdate);
+    }
+    console.log(MovieToUpdate)
+  }, [props.movies ,id ]);
+  
+  
   const handleSubmit = e => {
     e.preventDefault();
     axios
@@ -33,17 +43,6 @@ const MovieEdit = props => {
       })
       .catch(err => console.log(err));
   };
-
-
-  useEffect(() => {
-    const MovieToUpdate = props.movies.find(e => `${e.id}` === id);
-    if (MovieToUpdate) {
-      setNewMovie(MovieToUpdate);
-    }
-    console.log(MovieToUpdate)
-  }, [props.movies,id ]);
-  
-
 
   return (
     <div className="movie-card">
