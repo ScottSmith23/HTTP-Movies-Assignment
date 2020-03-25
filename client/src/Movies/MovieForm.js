@@ -11,11 +11,10 @@ const initialMovie = {
   };
 
 
-const MovieEdit = props => {
-    const {id} = useParams();
-    const {push} = useHistory();
-  const [newMovie, setNewMovie] = useState(initialMovie);
+const MovieForm = props => {
 
+  const [newMovie, setNewMovie] = useState(initialMovie);
+  const {push} = useHistory();
   
   const handleChanges = e => {
     setNewMovie({ ...newMovie, [e.target.name]: e.target.value });
@@ -35,28 +34,18 @@ const MovieEdit = props => {
   const handleSubmit = e => {
     e.preventDefault();
     axios
-      .put(`http://localhost:5000/api/movies/${id}`, newMovie)
+      .post(`http://localhost:5000/api/movies/`, newMovie)
       .then(res => {
         props.getMovieList();
-        push(`/movies/${id}`);
+        push(`/`);
       })
       .catch(err => console.log(err));
   };
 
 
-  useEffect(() => {
-    const MovieToUpdate = props.movies.find(e => `${e.id}` === id);
-    if (MovieToUpdate) {
-      setNewMovie(MovieToUpdate);
-    }
-    console.log(MovieToUpdate)
-  }, [props.movies ,id ]);
-  
-
-
   return (
     <div className="movie-card">
-      <h2><input
+      <h2>Title:<input
             className="edit-input"
             id="title"
             type="text"
@@ -101,4 +90,4 @@ const MovieEdit = props => {
   );
 };
 
-export default MovieEdit;
+export default MovieForm;
