@@ -8,6 +8,12 @@ import MovieEdit from './Movies/MovieEdit'
 const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
+  const [movieToEdit,setMovieToEdit] = useState({});  
+
+  const grabMovieToEdit = e => {
+    setMovieToEdit(e);
+  };
+
 
   const getMovieList = () => {
     axios
@@ -22,6 +28,7 @@ const App = () => {
 
   useEffect(() => {
     getMovieList();
+    console.log("Done fetching data")
   }, []);
 
   return (
@@ -33,11 +40,11 @@ const App = () => {
       </Route>
 
       <Route path="/movies/:id">
-        <Movie addToSavedList={addToSavedList} />
+        <Movie addToSavedList={addToSavedList}  />
       </Route>
 
       <Route path="/update-movie/:id">
-        <MovieEdit addToSavedList={addToSavedList} />
+        <MovieEdit movies={movieList} setMovieList={setMovieList} movie={movieToEdit} addToSavedList={addToSavedList} />
       </Route>
     </>
   );

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import MovieCard from './MovieCard';
 
-function Movie({ addToSavedList }) {
+function Movie({ addToSavedList,grabMovieToEdit }) {
   const [movie, setMovie] = useState(null);
   const match = useRouteMatch();
   const {push} = useHistory();
@@ -20,6 +20,7 @@ function Movie({ addToSavedList }) {
 
   const routeToEditForm = e => {
     e.preventDefault();
+    // grabMovieToEdit(movie)
     push(`/update-movie/${movie.id}`);
   };
 
@@ -33,7 +34,7 @@ function Movie({ addToSavedList }) {
 
   return (
     <div className='save-wrapper'>
-      <MovieCard movie={movie} />
+      <MovieCard movie={movie}  />
 
       <div className='save-button' onClick={saveMovie}>
         Save
